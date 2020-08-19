@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// website features routes
 Route::get('/', function () {
     return view('home');
 });
@@ -30,10 +30,16 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-
+// user membership routes
  Route::get('login', 'AuthController@index');
  Route::post('post-login', 'AuthController@postLogin'); 
  Route::get('registration', 'AuthController@registration');
  Route::post('post-registration', 'AuthController@postRegistration'); 
  Route::get('dashboard', 'AuthController@dashboard'); 
  Route::get('logout', 'AuthController@logout');
+
+// products routes
+
+  Route::post('products', 'ProductsController@addProduct');
+
+

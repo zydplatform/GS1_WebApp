@@ -101,7 +101,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="#">List of all Products</a>
-            <a class="collapse-item" data-toggle="modal" data-target="#productModal">Add Product</a>
+            <a class="collapse-item" data-toggle="modal" data-target="#productModal" data-backdrop="static" data-keyboard="false">Add Product</a>
             <a class="collapse-item" href="#">Products registered</a>
             <a class="collapse-item" href="#">Products Unregistered</a>
           </div>
@@ -367,27 +367,31 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>Product Code</th>
                       <th>Product Name</th>
                       <th>Product Price</th>
+                      <th>Product Quantity</th>
                       <th>Product Details</th>
                       <th>Product MFG (manufactured date)</th>
                       <th>Product EXP (expiry date)</th>
-                      <th>Product Quantity</th>
                     </tr>
                   </thead>
 
                   <tbody>
+                    @foreach ($products as $product)
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ $product->id }}</td>
+                      <td>{{ $product->productname }}</td>
+                      <td>{{ $product->productprice }}</td>
+                      <td>{{ $product->productdetails }}</td>
+                      <td>{{ $product->productqty }}</td>   
+                      <td>{{ $product->mfgdate }}</td>   
+                      <td>{{ $product->expdate }}</td>                  
                     </tr>
+                    @endforeach
                    </tbody>
                  </table>
-                                 </div>
+              </div>
             </div>
           </div>
 
@@ -487,29 +491,41 @@
           <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
          </div>
-          <form id="prodform" method="POST">
+          <form id="prodform" action="{{url('products')}}" method="POST">
+            {{ csrf_field() }}
+                 
+                  @if (count($errors) > 0)
+                    <div class="alert alert-danger" id="show_error">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
             <div class="form-group">
               <label for="pname">Product Name</label>
-              <input type="text" class="form-control" id="pname" name="pname" aria-describedby="pname" placeholder="Enter product name" required>
+              <input type="text" class="form-control" id="pname" name="pname" aria-describedby="pname" placeholder="Enter product name">
             </div>
             <div class="form-group">
               <label for="pprice">Product Price</label>
               <input type="number" class="form-control" id="pprice" name="pprice">            </div>
             <div class="form-group">
               <label for="pdetails">Product Details</label>
-              <input type="text" class="form-control" name="pdetails" id="pdetails" aria-describedby="rate" placeholder="product details eg: weight,size" required>
+              <input type="text" class="form-control" name="pdetails" id="pdetails" aria-describedby="rate" placeholder="product details eg: weight,size">
             </div>
             <div class="form-group">
               <label for="qty">Product Quantity </label>
-              <input type="number" class="form-control" id="qty" name="qty" placeholder="Number of items" required>
+              <input type="number" class="form-control" id="pqty" name="pqty" placeholder="Number of items">
             </div>
             <div class="form-group">
               <label for="mfg">Product MFG </label>
-              <input type="date" class="form-control" id="mfg" name="mfg" placeholder="date manufactured" required>
+              <input type="date" class="form-control" id="mfgdate" name="mfgdate" placeholder="date manufactured">
             </div>
             <div class="form-group">
               <label for="exp">Product EXP </label>
-              <input type="date" class="form-control" id="exp" name="exp" placeholder="expiry date" required>
+              <input type="date" class="form-control" id="expdate" name="expdate" placeholder="expiry date">
             </div>
 
             <button title="addproduct" type="submit" id="addproduct" name="addproduct" class="btn btn-primary">Submit</button>
@@ -518,52 +534,6 @@
         </div>
 
 
-<script>
-$(document).ready(function() {
-  $('#addproduct').('submit', function(e) {
-    e.preventDefault();
-    debugger
-    
-    $("#addproduct").attr("disabled", "disabled");
-    var pname = $('#pname').val();
-    var pprice = $('#ppricel').val();
-    var pdetails = $('#pdetails').val();
-    var qty = $('#qty').val();
-    var mfg = $('#mfg').val();
-    var exp = $('#exp').val();
-    if(pname!="" && pprice!="" && pdetails!="" && qty!="" && mfg != "" && exp!=""){
-      $.ajax({
-
-        url: "products.php",
-        type: "POST",
-        data: $(this).serializer(),
-        cache: false,
-        success: function(dataResult){
-          var dataResult = JSON.parse(dataResult);
-          if(dataResult.statusCode==200){
-            $("#addproduct").removeAttr("disabled");
-            $('#prodform').find('input:text').val('');
-            $("#success").show();
-            $('#success').html('Data added successfully !');            
-          }
-          else if(dataResult.statusCode==201){
-             alert("Error occured !");
-          }
-          
-        }
-      });
-    }
-    else{
-      alert('Please fill all the field !');
-    }
-  });
-});
-</script>
-
-<!--         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="../../index.html">Logout</a>
-        </div> -->
       </div>
     </div>
   <!-- Footer -->

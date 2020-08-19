@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator,Redirect,Response;
 Use App\User;
+Use App\Products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use DB;
 
 class AuthController extends Controller
 {
@@ -74,7 +76,8 @@ class AuthController extends Controller
     {
 
       if(Auth::check()){
-        return view('dashboard');
+        $products = DB::select('select * from products');
+        return view('dashboard', ['products'=>$products]);
       }
        return Redirect::to("login")->withSuccess('Opps! You do not have access');
     }
