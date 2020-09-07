@@ -25,7 +25,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## GS1 Partners And Sponsers
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor.
+We would like to extend our thanks to the following sponsors for funding GS1 Uganda Project development. If you are interested in becoming a sponsor email us via [ceo@planetsystems.co](mailto:ceo@planetsystems.co)
 
 - **[Planet Systems Uganda]**
 
@@ -35,7 +35,7 @@ Thank you for considering contributing to GS1 Uganda.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Planet Systems Uganda via [ceo@planetsystems.co](mailto:ceo@planetsystems.co). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within GS1 Uganda Web Project, please send an e-mail to Planet Systems Uganda via [ceo@planetsystems.co](mailto:ceo@planetsystems.co). All security vulnerabilities will be promptly addressed.
 
 ## License
 
