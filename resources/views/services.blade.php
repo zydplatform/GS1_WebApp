@@ -136,10 +136,10 @@
       <div class="col-sm-3">
         <p style="color: #ff5721;">QUICK LINKS</p>
         <ul style="list-style: none;">
-          <li><a href="views/login.php">Get Barcodes</a></li>
-          <li><a href="resources.php">Resources</a></li>
-          <li><a href="tools.php">Tools</a></li>
-          <li><a href="views/signup.php">Become a Member</a></li>
+          <li><a href="{{url('login')}}">Get Barcodes</a></li>
+          <li><a href="{{url('resources')}}">Resources</a></li>
+          <li><a href="{{url('tools')}}">Tools</a></li>
+          <li><a href="{{url('registration')}}">Become a Member</a></li>
         </ul>
       </div>
       <div class="col-sm-3">
@@ -163,10 +163,10 @@
       <div class="col-sm-3">
                 <p style="color: #ff5721;">HELP</p>
         <ul style="list-style: none;">
-          <li><a href="contactform.php">FAQ</a></li>
-          <li><a href="contactform.php">Join Our Mailing List</a></li>
-          <li><a href="contactform.php">Education & Training</a></li>
-          <li><a href="contactform.php">Enquiries</a></li>
+          <li><a href="{{url('contact')}}">FAQ</a></li>
+          <li><a href="{{url('contact')}}">Join Our Mailing List</a></li>
+          <li><a href="{{url('contact')}}">Education & Training</a></li>
+          <li><a href="{{url('contact')}}">Enquiries</a></li>
         </ul>
       </div>
     </div>
@@ -194,4 +194,4 @@
     </div>
   </div>
   </div>
-@endsection
+  @endsection

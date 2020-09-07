@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator,Redirect,Response;
+use Illuminate\Support\Facades\DB;
 Use App\User;
-Use App\Products;
+Use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
-use DB;
 
 class AuthController extends Controller
 {
@@ -34,19 +34,23 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             // Authentication passed...
+            // 
+            // ->where('userproduct_id', 2);
             return redirect()->intended('dashboard');
         }
         return Redirect::to("login")->withSuccess('Oppes! You have entered invalid credentials');
     }
 
     public function postRegistration(Request $request)
-    {  
+    {   
+
+    // Validate the value...
         request()->validate([
         'name' => 'required',
         'email' => 'required|email|unique:users',
         //'contact_number' => 'required|contact_number|unique:users',
         'password' => 'required|min:6',
-        'ownership' => 'required',
+                'ownership' => 'required',
             'businessowner' => 'required',
             'companysize' => 'required',
             'contactp' => 'required',
@@ -62,7 +66,6 @@ class AuthController extends Controller
             'paddress' => 'required',
             'district' => 'required',
             'docs' => 'required',
-            
         ]);
         
         $data = $request->all();
@@ -70,24 +73,37 @@ class AuthController extends Controller
         $check = $this->create($data);
       
         return Redirect::to("dashboard")->withSuccess('Great! You have Successfully loggedin');
+
+    
+    }
+
+    public function payment(){
+        return view('payment');
     }
     
     public function dashboard()
     {
 
       if(Auth::check()){
-        $products = DB::select('select * from products');
-        return view('dashboard', ['products'=>$products]);
+        $products = DB::table('products')->get();
+        // $products = Product::all();
+        return view('dashboard',['products' => $products]);
       }
        return Redirect::to("login")->withSuccess('Opps! You do not have access');
     }
 
-    public function create(array $data)
-    {
-      return User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
+    // delete
+    // public function deleteProduct($id){
+    //     Product::where('id', $id)->delete();
+    //     return redirect('dashboard');
+    // }
+
+	public function create(array $data)
+	{
+	  return User::create([
+	    'name' => $data['name'],
+	    'email' => $data['email'],
+	    'password' => Hash::make($data['password']),
         'ownership' => $data['ownership'],
         'owners' => $data['businessowner'],
         'companysize' => $data['companysize'],
@@ -103,12 +119,11 @@ class AuthController extends Controller
         'physicaladdress' => $data['address'],
         'postaladdress' => $data['paddress'],
         'district' => $data['district'],
-        'documents' => $data['docs']
-
-      ]);
-    }
-    
-    public function logout() {
+        'documents' => $data['docs'],
+	  ]);
+	}
+	
+	public function logout() {
         Session::flush();
         Auth::logout();
         return Redirect('login');

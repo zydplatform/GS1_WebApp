@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<button onclick="getTime()">Get-time</button>
+<script type="text/javascript">
+	
+	function getTime() {
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(Moment);
+
+const start = new Date("11/30/2018"), end = new Date("09/30/2019")
+const range = moment.range(moment(start), moment(end));
+
+console.log(Array.from(range.by('day')))
+}
+</script>
+</body>
+</html>
+
+
+

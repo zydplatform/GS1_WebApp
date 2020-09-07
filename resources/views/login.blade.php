@@ -8,6 +8,7 @@
     <meta name="keywords" content="web application for barcodes using mobile first approach">
     <meta name="description" content="GS1 Uganda website">
     <title>GS1 Uganda</title>
+    <link rel="icon" href="images/newlogo1.png" type="image/icon type">
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css">
     <link rel="icon" href="./images/newlogo1.png" type="image/icon type">
@@ -206,8 +207,11 @@ a.socialIcon:hover,
                 </div>
 
                 <button class="btn btn-md" type="submit">Sign In</button>
-                <div class="text-center">If you have an account?
-                  <a class="small" href="{{url('registration')}}">Sign Up</a></div>
+                <div class="text-center">If you don't have an account?
+                  <a class="small" href="{{url('registration')}}">Sign Up</a><br>
+                  <a class="small" href="{{url('/')}}">GS1 Uganda Website</a>
+              </div>
+
                   <div class="col-md-12">
                         <ul class="social-network social-circle">
                             <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>

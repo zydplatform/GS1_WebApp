@@ -118,7 +118,7 @@
                           <a href="https://www.gs1.org/services/gdsn/how-gdsn-works"
                  target="_self">
                 
-  <img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/gdsn-schema-simple.png" width="1415" height="748" alt="GDSN schema" title="GDSN schema" />              </a>
+  <img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/gdsn-schema-simple.png" width="1415" height="300" alt="GDSN schema" title="GDSN schema" />              </a>
                       </div>
         </div>
       </div>
@@ -141,14 +141,14 @@
         <div class="col-md-4 img">
             
   <div class="field field-name-field-bean-image field-type-image field-label-hidden">
-    <a href="https://www.gs1.org/services/gdsn/certified-data-pools-list" target=""><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/gdsn-road-photo.jpg" width="1000" height="667" alt="GDSN road" title="GDSN road" /></a>  </div>
+    <a href="https://www.gs1.org/services/gdsn/certified-data-pools-list" target=""><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/gdsn-road-photo.jpg" width="1000" height="300" alt="GDSN road" title="GDSN road" /></a>  </div>
         </div>
         <div class="col-md-8 text">
             <h3><b>Find a GDSN certified data pool</b></h3>
             <div class="field field-name-field-bean-body field-type-text-long">
                 <p><p>Any company that needs to send or receive product information can take advantage of GDSN by subscribing to a data pool. Your data pool will enable you to set up your product content and synchronise it with all your trading partners, so you can plug in reliable data for all markets at one time.</p>
 
-<p><a href="/services/gdsn/certified-data-pools-list"><b>Find a GDSN data pool &gt;</b></a></p>
+<p></p>
 </p>
             </div>
         </div>
@@ -168,7 +168,7 @@
             <div class="content matchheight  bg-white ">
       <div class="row">
         <div class="col-6 col-md-3 hidden-xs hidden-sm">
-          <div class="field field-name-field-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even"><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/icon-guidelines.png" width="1864" height="1864" alt="icon guidelines" title="icon guidelines" /></div></div></div>        </div>
+          <div class="field field-name-field-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even"><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/icon-guidelines.png" width="1864" height="300" alt="icon guidelines" title="icon guidelines" /></div></div></div>        </div>
         <div class="col-12 col-md-9">
                     <div class="field_bean_body_container" style="" >
           <p style="margin-top: 10px;"><a href="https://www.gs1.org/standards/gdsn" title="GDSN standards &amp; guidelines" type="GDSN standards &amp; guidelines"><b style="color: #002c6c;">GDSN standards and guidelines &gt;</b></a></p>
@@ -205,7 +205,7 @@
             <div class="content matchheight  bg-white ">
       <div class="row">
         <div class="col-6 col-md-3 hidden-xs hidden-sm">
-          <div class="field field-name-field-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even"><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/icon-info.png" width="1864" height="1864" alt="icon info" title="icon info" /></div></div></div>        </div>
+          <div class="field field-name-field-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even"><img typeof="foaf:Image" class="img-responsive" src="https://mocdn.gs1.org/sites/default/files/icon-info.png" width="1864" height="300" alt="icon info" title="icon info" /></div></div></div>        </div>
         <div class="col-12 col-md-9">
                     <div class="field_bean_body_container" style="" >
           <ul style="list-style: none; padding: 0; margin: 0;">
@@ -342,15 +342,15 @@
     </div>
   </div>
   
-  <div class="footer" style="bottom:auto; position: relative;text-align: center;" >
+<div class="footer" style="bottom:auto; position: relative;text-align: center;" >
     <div class="row">
       <div class="col-sm-3">
         <p style="color: #ff5721;">QUICK LINKS</p>
         <ul style="list-style: none;">
-          <li><a href="views/login.php">Get Barcodes</a></li>
-          <li><a href="resources.php">Resources</a></li>
-          <li><a href="tools.php">Tools</a></li>
-          <li><a href="views/signup.php">Become a Member</a></li>
+          <li><a href="{{url('login')}}">Get Barcodes</a></li>
+          <li><a href="{{url('resources')}}">Resources</a></li>
+          <li><a href="{{url('tools')}}">Tools</a></li>
+          <li><a href="{{url('registration')}}">Become a Member</a></li>
         </ul>
       </div>
       <div class="col-sm-3">
@@ -374,10 +374,10 @@
       <div class="col-sm-3">
                 <p style="color: #ff5721;">HELP</p>
         <ul style="list-style: none;">
-          <li><a href="contactform.php">FAQ</a></li>
-          <li><a href="contactform.php">Join Our Mailing List</a></li>
-          <li><a href="contactform.php">Education & Training</a></li>
-          <li><a href="contactform.php">Enquiries</a></li>
+          <li><a href="{{url('contact')}}">FAQ</a></li>
+          <li><a href="{{url('contact')}}">Join Our Mailing List</a></li>
+          <li><a href="{{url('contact')}}">Education & Training</a></li>
+          <li><a href="{{url('contact')}}">Enquiries</a></li>
         </ul>
       </div>
     </div>
@@ -405,4 +405,4 @@
     </div>
   </div>
   </div>
-@endsection
+  @endsection

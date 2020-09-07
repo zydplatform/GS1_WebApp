@@ -15,6 +15,7 @@
   <!-- Custom fonts for this template-->
   <link href="mydashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- Custom styles for this template-->
   <link href="mydashboard/css/userdashboard.css" rel="stylesheet">
@@ -40,7 +41,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('home')}}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('dashboard')}}">
         <div class="sidebar-brand-icon rotate-n-0">
           <img src="images/newlogo1.png" alt="gs1-logo" style="width: 80px;height: 60px;">
         </div>
@@ -52,7 +53,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{{url('home')}}}">
+        <a class="nav-link" href="{{url('dashboard')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -72,7 +73,7 @@
             <a class="collapse-item" href="#">Barcode Image Validation</a>
             <a class="collapse-item" href="#">Barcode  Validation</a>
             <a class="collapse-item" href="#">Barcode Numbering</a>
-            <a class="collapse-item" data-toggle="modal" data-target="#barcodeModal">Get Barcode</a>
+            <a class="collapse-item" href="#">Get Barcode</a>
           </div>
         </div>
       </li>
@@ -100,7 +101,7 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">List of all Products</a>
+            <a class="collapse-item" href="all-products">List of all Products</a>
             <a class="collapse-item" data-toggle="modal" data-target="#productModal" data-backdrop="static" data-keyboard="false">Add Product</a>
             <a class="collapse-item" href="#">Products registered</a>
             <a class="collapse-item" href="#">Products Unregistered</a>
@@ -148,7 +149,7 @@
             </div>
           </form> -->
           <div style="height: 100px; text-align: center;font-weight: bold;margin-top: 50px;">
-           <h3>Welcome to GS1 Uganda  Dashboard {{ ucfirst(Auth()->user()->name) }}</h3>
+           <h3>Welcome to GS1 Uganda  Dashboard <strong style="color: #ff5721;">{{ ucfirst(Auth()->user()->name) }}</strong></h3>
           </div>
             <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -161,8 +162,9 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ ucfirst(Auth()->user()->name) }}</span>
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong style="color: #ff5721;"> {{ ucfirst(Auth()->user()->name) }}</strong></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong style="color: #ff5721;"> {{ ucfirst(Auth()->user()->email) }}</strong></span>
                 <!-- <img class="img-profile rounded-circle" src="images/cocacola.png" alt="company-logo"> -->
               </a>
               <!-- Dropdown - User Information -->
@@ -188,7 +190,6 @@
             </li>
 
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
@@ -369,24 +370,37 @@
                     <tr>
                       <th>Product Code</th>
                       <th>Product Name</th>
-                      <th>Product Price</th>
-                      <th>Product Quantity</th>
+                      <th>Product Unit Price</th>
+                      <th>Product Brand</th>
+                      <th>Product/Item Reference Number</th>
                       <th>Product Details</th>
+                      <th>Product Quantity</th>
                       <th>Product MFG (manufactured date)</th>
                       <th>Product EXP (expiry date)</th>
+                      <th>Generate Barcodes</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     @foreach ($products as $product)
                     <tr>
                       <td>{{ $product->id }}</td>
                       <td>{{ $product->productname }}</td>
                       <td>{{ $product->productprice }}</td>
+                      <td>{{ $product->productbrand }}</td>
+                      <td>{{ $product->item_reference_number }}</td>
                       <td>{{ $product->productdetails }}</td>
                       <td>{{ $product->productqty }}</td>   
                       <td>{{ $product->mfgdate }}</td>   
-                      <td>{{ $product->expdate }}</td>                  
+                      <td>{{ $product->expdate }}</td>
+                      <td><a  href="barcode-product/{{ $product->id}}"><button style="background-color: #ff5721;cursor: pointer;color: white;border: 0px;">Get Barcodes</button></a></td>
+                      <td><div class="d-flex flex-row">
+                        <form method="delete">
+                        @csrf
+                        @method('delete')
+                        <a data-toggle="modal" data-target="#deleteModal" title="delete"><i class="p-2 fa fa-trash" style="color: #ff5721;cursor: pointer;"></i></a></form>
+                      
+                        <a href="edit-product/{{ $product->id}}" title="edit"><i class="p-2 fa fa-edit" style="color: #ff5721;cursor: pointer;"></i></a></div></td>                  
                     </tr>
                     @endforeach
                    </tbody>
@@ -434,41 +448,29 @@
       </div>
     </div>
   </div>
-  <!-- barcode modal -->
-  <div class="modal fade" id="barcodeModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- delete product -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Get your Barcodes Here</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><strong style="color: #ff5721;">Delete Product</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">
-
-          
-          <form method="post" action="barcode.php" target="_blank">
-            <div class="form-group">
-              <label for="productname">Product Name</label>
-              <input type="text" class="form-control" id="product" name="product" aria-describedby="productname" placeholder="Enter product name">
-            </div>
-            <div class="form-group">
-              <label for="product_id">Product ID</label>
-              <input type="text" class="form-control" id="product_id" name="product_id">
-            </div>
-            <div class="form-group">
-              <label for="productcost">Product Price</label>
-              <input type="number" class="form-control" name="rate" id="rate" aria-describedby="rate" placeholder="Enter product price">
-            </div>
-                        <div class="form-group">
-              <label for="barcodes">Barcode Quantity </label>
-              <input type="number" class="form-control" id="print_qty" name="print_qty" placeholder="barcodes">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+        <div class="modal-body" style="color: rgba(255,10,51,1);">Are you sure you want to delete this product ?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-md btn-warning" name="delete"><a href="delete-product/{{ $product->id }}" style="color: white;">Confirm Delete</a></button>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- delete product -->
+  <!-- edit product -->
+
+  <!-- edit product -->
+ 
 <!--         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="../../index.html">Logout</a>
@@ -491,7 +493,7 @@
           <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
          </div>
-          <form id="prodform" action="{{url('products')}}" method="POST">
+          <form id="prodform" action="{{route('product.add')}}" method="POST">
             {{ csrf_field() }}
                  
                   @if (count($errors) > 0)
@@ -503,14 +505,23 @@
                         </ul>
                     </div>
                 @endif
-                
+            <div class="form-group">
+              <label for="member">Company Membership No</label>
+              <input type="number" class="form-control" id="member" name="member" aria-describedby="member" value="{{ ucfirst(Auth()->user()->id) }}">
+            </div>
             <div class="form-group">
               <label for="pname">Product Name</label>
-              <input type="text" class="form-control" id="pname" name="pname" aria-describedby="pname" placeholder="Enter product name">
+              <input type="text" class="form-control" id="pname" name="pname" aria-describedby="pname" placeholder="Product Name">
             </div>
             <div class="form-group">
               <label for="pprice">Product Price</label>
-              <input type="number" class="form-control" id="pprice" name="pprice">            </div>
+              <input type="number" class="form-control" id="pprice" name="pprice" placeholder="Product Price">            </div>
+              <div class="form-group">
+              <label for="pbrand">Product Brand</label>
+              <input type="text" class="form-control" id="pbrand" name="pbrand" placeholder="Product Brand">            </div>
+              <div class="form-group">
+              <label for="item_no">Product/Item Reference Number</label>
+              <input type="number" class="form-control" id="item_no" name="item_no" placeholder="Item Reference Number">            </div>
             <div class="form-group">
               <label for="pdetails">Product Details</label>
               <input type="text" class="form-control" name="pdetails" id="pdetails" aria-describedby="rate" placeholder="product details eg: weight,size">
@@ -536,6 +547,7 @@
 
       </div>
     </div>
+    <!-- payment form -->
   <!-- Footer -->
       <footer class="sticky-footer bg-white" style="bottom: 0px;">
         <div class="">
@@ -548,6 +560,7 @@
       </footer>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="mydashboard/vendor/jquery/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="mydashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -564,12 +577,65 @@
   <script src="mydashboard/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="mydashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <!-- Page level custom scripts -->
   <script src="mydashboard/js/demo/chart-area-demo.js"></script>
   <script src="mydashboard/js/demo/chart-pie-demo.js"></script>
   <script src="mydashboard/js/demo/datatables-demo.js"></script>
+<!--   <script type="text/javascript">
+  $('document').ready(function(){
+        $("#myModal").modal('show');
+        // event.preventDefault();
+    });
+</script> -->
+<script type="text/javascript">
+  
+  $(document).ready(function () {
+    // $('#payModal').modal().show();
+    // $('#addproduct').attr('disabled', true);
+    $('#editproduct').attr('disabled', true);
+    $('input[type="text"],input[type="number"],input[type="date"]').on('keyup', function () {
+        var pname = $("#pname").val();
+        var pprice = $("#pprice").val();
+        var pbrand = $("#pbrand").val();
+        var item_no = $('#item_no').val(); 
+        var pdetails = $("#pdetails").val();
+        var pqty = $("#pqty").val();
+        var mfgdate = $("#mfgdate").val();
+        var expdate = $("#expdate").val();
+        // var text_value = $('input[name="textField"]').val();
+        if (pname != '' && pprice !='' && pbrand !='' && item_no !='' && pdetails !='' && pqty !='' && mfgdate !='' && expdate !='') {
+            // $('#addproduct').attr('disabled', false);
+        } else {
+            // $('#addproduct').attr('disabled', true);
+        }
+    });
+    // edit product 
+    $('input[type="text"],input[type="number"],input[type="date"]').on('keyup', function () {
+        var pname = $("#pname_edit").val();
+        var pprice = $("#pprice_edit").val();
+        var pbrand = $("#pbrand_edit").val();
+        var item_no = $('#item_no_edit').val(); 
+        var pdetails = $("#pdetails_edit").val();
+        var pqty = $("#pqty_edit").val();
+        // var mfgdate = $("#mfgdate_edit").val();
+        // var expdate = $("#expdate_edit").val();
+        // var text_value = $('input[name="textField"]').val();
+        if (pname != '' && pprice !='' && pbrand !='' && item_no !='' && pdetails !='' && pqty !='') {
+            $('#editproduct').attr('disabled', false);
+        } else {
+            $('#editproduct').attr('disabled', true);
+        }
+    });
 
+
+    // first time visitors
+
+
+});
+</script>
 </body>
 
 </html>
