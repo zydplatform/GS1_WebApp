@@ -23,7 +23,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 -[Vanilla Javascript] 
 -[Jquery]
 
-## GS1 Partners And Sponsers
+## GS1 Uganda Partners And Sponsers
 
 We would like to extend our thanks to the following sponsors for funding GS1 Uganda Project development. If you are interested in becoming a sponsor email us via [ceo@planetsystems.co](mailto:ceo@planetsystems.co)
 
